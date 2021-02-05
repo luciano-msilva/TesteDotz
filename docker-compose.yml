@@ -1,0 +1,25 @@
+version: '3.4'
+
+services:
+  dotz.webapi:
+    image: ${DOCKER_REGISTRY-}dotzwebapi
+    build:
+      context: .
+      dockerfile: Dotz.WebApi/Dockerfile
+      
+  db:
+    image: mysql:latest
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'Dotz'      
+      MYSQL_USER: 'root'      
+      MYSQL_PASSWORD: 'dotz@teste'      
+      MYSQL_ROOT_PASSWORD: 'dotz@teste'
+    ports:      
+      - '3306:3306'
+    expose:      
+      - '3306'      
+    volumes:
+      - my-db:/var/lib/mysql
+volumes:
+  my-db:
